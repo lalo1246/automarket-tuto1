@@ -1,14 +1,27 @@
-import React, {useEffect, useState} from 'react'
-import { View, Text } from 'react-native'
+import React, {useEffect, useState} from 'react';
+import { View, Text, Flatlist } from 'react-native';
+import { getTasks } from '../api'
 
 const HomeScreen = () => {
+    
+    const [tasks, setTasks] = useState([]);
+
+    const loadTasks = async () => {
+        const data = await getTasks();
+        setTasks(data);
+    }
 
     useEffect(() => {
-        console.log('cargo')        
+        loadTasks();
     }, [])
     return (
         <View>
-            <Text>Home Screen</Text>
+            <Flatlist
+            data= {tasks}
+            renderItem = { () => (
+                <Text>Hello world</Text>
+            )}
+            />
         </View>
     )
 }
