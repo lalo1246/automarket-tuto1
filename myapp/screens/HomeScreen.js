@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, Flatlist } from 'react-native';
+import { View} from 'react-native';
 import { getTasks } from '../api'
+
+import Layout from '../components/layout';
+import TaskList from '../components/TaskList';
 
 const HomeScreen = () => {
     
@@ -9,20 +12,16 @@ const HomeScreen = () => {
     const loadTasks = async () => {
         const data = await getTasks();
         setTasks(data);
+        console.log(data);
     }
 
     useEffect(() => {
         loadTasks();
     }, [])
     return (
-        <View>
-            <Flatlist
-            data= {tasks}
-            renderItem = { () => (
-                <Text>Hello world</Text>
-            )}
-            />
-        </View>
+        <Layout>
+            <TaskList tasks={tasks}/>
+        </Layout>
     )
 }
 
